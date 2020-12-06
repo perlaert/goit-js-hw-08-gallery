@@ -5,6 +5,7 @@ const lightboxRef = document.querySelector(".js-lightbox");
 const lightboxImgRef = document.querySelector(".lightbox__image");
 const closeModalBtn = document.querySelector('button[data-action="close-lightbox"]');
 const overlayRef = document.querySelector(".lightbox__overlay");
+let activeIndex = 0;
 
 /*Создает разметку*/
 const createGalleryList = gallery.map((element) => {
@@ -52,6 +53,8 @@ function handleOpenModal(event) {
   lightboxImgRef.setAttribute("src", currentImg);
   lightboxImgRef.setAttribute("alt", currentImgAlt);
   lightboxImgRef.setAttribute("data-index", currentImgIndex);
+
+  activeIndex = Number(currentImgIndex);
 }
 
 function handleCloseModal() {
@@ -79,10 +82,6 @@ function handlePressEscape(event) {
 
 function hadlePressArrow(event) {
   const galleryLength = document.querySelectorAll(".gallery__item").length;
-  //   console.log(galleryLength);
-
-  let activeIndex = Number(lightboxImgRef.dataset.index);
-  //   console.log(activeIndex);
 
   if (event.code === "ArrowRight" && activeIndex < galleryLength - 1) {
     activeIndex += 1;
@@ -98,5 +97,4 @@ function hadlePressArrow(event) {
 function scrollImg(activeIndex) {
   lightboxImgRef.setAttribute("src", gallery[activeIndex].original);
   lightboxImgRef.setAttribute("alt", gallery[activeIndex].description);
-  lightboxImgRef.setAttribute("data-index", activeIndex);
 }
