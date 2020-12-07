@@ -8,7 +8,7 @@ const overlayRef = document.querySelector(".lightbox__overlay");
 let activeIndex = 0;
 
 /*Создает разметку*/
-const createGalleryList = gallery.map((element) => {
+const createGalleryList = gallery.map((element, index) => {
   const itemRef = document.createElement("li");
   itemRef.classList.add("gallery__item");
   const linkRef = document.createElement("a");
@@ -19,7 +19,7 @@ const createGalleryList = gallery.map((element) => {
   imageRef.setAttribute("src", element.preview);
   imageRef.setAttribute("data-source", element.original);
   imageRef.setAttribute("alt", element.description);
-  imageRef.setAttribute("data-index", element.dataIndex);
+  imageRef.setAttribute("data-index", index);
 
   linkRef.appendChild(imageRef);
   itemRef.appendChild(linkRef);
@@ -38,11 +38,12 @@ overlayRef.addEventListener("click", handleOverlayClick);
 
 function handleOpenModal(event) {
   event.preventDefault();
-  window.addEventListener("keydown", handlePressEscape);
-  window.addEventListener("keydown", hadlePressArrow);
 
   const target = event.target;
   if (target.nodeName !== "IMG") return;
+
+  window.addEventListener("keydown", handlePressEscape);
+  window.addEventListener("keydown", hadlePressArrow);
 
   lightboxRef.classList.add("is-open");
 
